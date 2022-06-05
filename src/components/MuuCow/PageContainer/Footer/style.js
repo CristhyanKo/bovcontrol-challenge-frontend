@@ -10,7 +10,7 @@ export const Logo = styled.div`
 	}
 `
 export const FooterBar = styled.div`
-	margin-top: 20px;
+	margin-top: 5px;
 	display: flex;
 	justify-content: space-between;
 `

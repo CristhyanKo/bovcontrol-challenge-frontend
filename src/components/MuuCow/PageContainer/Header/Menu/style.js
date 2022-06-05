@@ -18,9 +18,9 @@ export const MenuItem = styled.div`
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	border-bottom: ${(props) => (props.active ? "3px solid #12b5f3" : "3px solid transparent")};
+	border-bottom: ${(props) => (props.active ? `3px solid ${props.color}` : "3px solid transparent")};
 	:hover {
-		border-bottom: 3px solid #90a3ab;
+		border-bottom: 3px solid ${(props) => props.color || "#90a3ab"};
 		transition: 0.2s ease-in-out;
 	}
 

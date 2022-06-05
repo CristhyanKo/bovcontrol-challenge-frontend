@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
 		-o-background-size: cover;
 		background-size: cover;
 		margin: 0;
-		padding: 0 20px;
+		padding: 0 40px;
 		font-family: 'Work Sans', sans-serif;
 
 		* {
