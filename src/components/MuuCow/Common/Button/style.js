@@ -17,8 +17,8 @@ export const ButtonBox = styled.button`
 	margin-right: ${(props) => props.mr || "0"};
 
 	:hover {
-		background: ${(props) => pSBC(0.2, props.color) || pSBC("#90a3ab")};
-		color: ${(props) => (props.color ? pSBC(contrastTextColor(props.color)) : pSBC("#fff"))};
+		background: ${(props) => pSBC(0.2, props.color) || pSBC(0.2, "#90a3ab")};
+		color: ${(props) => (props.color ? contrastTextColor(props.color) : "#fff")};
 	}
 
 	svg {

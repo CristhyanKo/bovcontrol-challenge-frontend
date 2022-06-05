@@ -46,5 +46,5 @@ export const TabOption = styled.div`
 export const ConsultaContent = styled.div`
 	display: flex;
 	margin-top: 10px;
-	height: calc(100% - 50px);
+	height: calc(100% - 70px);
 `

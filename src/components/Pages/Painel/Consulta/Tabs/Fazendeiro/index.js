@@ -1,13 +1,16 @@
 import { useContext, useEffect, useState } from "react"
-import { FaRegEye, FaRegEdit, FaRegTrashAlt } from "react-icons/fa"
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa"
 import Table from "../../../../../MuuCow/Common/Table"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
 import TableContext from "../../../../../../contexts/TableContext"
+import ModalContext from "../../../../../../contexts/ModalContext"
+import ModalFazendeiro from "./_modal"
 
 export default function FazendeiroTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page } = useContext(TableContext)
+	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
 	const service = ServiceBase("farmer")
 
 	const cols = [
@@ -15,22 +18,24 @@ export default function FazendeiroTab() {
 		{ id: "email", name: "Email", center: false },
 		{ id: "isSupervisor", name: "Supervisor", center: true },
 	]
-	const tableAction = (i) => {
+	const tableAction = (formData) => {
 		return (
 			<>
 				<Button
 					color='#00AB77'
 					onClick={() => {
-						console.log(i)
-					}}
-					mr='5px'
-				>
-					<FaRegEye />
-				</Button>
-				<Button
-					color='#00AB77'
-					onClick={() => {
-						console.log(i)
+						setShowModal(true)
+						setModalData({
+							title: "Visualizar/Editar",
+							content: <ModalFazendeiro data={formData} />,
+							confirmText: "Salvar",
+							onConfirm: () => {
+								setShowModal(false)
+							},
+							onClose: () => {
+								setShowModal(false)
+							},
+						})
 					}}
 					mr='5px'
 				>
@@ -39,7 +44,18 @@ export default function FazendeiroTab() {
 				<Button
 					color='#00AB77'
 					onClick={() => {
-						console.log(i)
+						setShowAlertModal(true)
+						setAlertModalData({
+							title: "Atenção",
+							content: "Deseja excluir o registro ?",
+							type: "alert",
+							onConfirm: () => {
+								setShowAlertModal(false)
+							},
+							onClose: () => {
+								setShowAlertModal(false)
+							},
+						})
 					}}
 				>
 					<FaRegTrashAlt />
