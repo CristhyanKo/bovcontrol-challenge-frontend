@@ -1,7 +1,3 @@
 export default function Inicio() {
-  return (
-    <div>
-      Hello !
-    </div>
-  )
+	return <div>Hello !</div>
 }
