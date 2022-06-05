@@ -7,10 +7,14 @@ import Footer from "./Footer"
 import Header from "./Header"
 import { BackButtom, Child, Content, Page } from "./style"
 import { TableProvider } from "../../../contexts/TableContext"
+import ModalContext from "../../../contexts/ModalContext"
+import Modal from "../Modal"
+import AlertModal from "../AlertModal"
 
 export default function PageContainer({ children, title, backButton }) {
 	const route = useRouter()
 	const { activePage, setActivePage } = useContext(MenuContext)
+	const { showModal, showAlertModal } = useContext(ModalContext)
 
 	useEffect(() => {
 		const path = route.pathname.split("/")[1]
@@ -43,8 +47,12 @@ export default function PageContainer({ children, title, backButton }) {
 			<Head>
 				<title>MuuCow {title && ` - ${title}`}</title>
 			</Head>
+
+			{showModal && <Modal />}
+			{showAlertModal && <AlertModal />}
 			<Page>
 				<Header />
+
 				<Content backButton={backButton} borderColor={activePage.color}>
 					{backButton && (
 						<BackButtom className='animate__animated animate__rubberBand' onClick={() => route.back()} color={activePage.color}>
