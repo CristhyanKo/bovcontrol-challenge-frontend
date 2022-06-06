@@ -5,13 +5,13 @@ import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
 import TableContext from "../../../../../../contexts/TableContext"
 import ModalContext from "../../../../../../contexts/ModalContext"
-import ModalFazendeiro from "./_modal"
+import ModalParametrizacao from "./_modal"
 
-export default function FazendeiroTab() {
+export default function ParametrizacaoTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page, reloadData, setReloadData } = useContext(TableContext)
 	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
-	const modelName = "farmer"
+	const modelName = "parametrization"
 	const service = ServiceBase(modelName)
 	const idName = `${modelName}Id`
 	const submitRef = useRef(null)
@@ -23,9 +23,11 @@ export default function FazendeiroTab() {
 	}
 
 	const cols = [
-		{ id: "name", name: "Nome", center: false },
-		{ id: "email", name: "Email", center: false },
-		{ id: "isSupervisor", name: "Supervisor", center: true },
+		{ id: "basicPriceMilkLiter", name: "Preço Base Leite (L)", center: true },
+		{ id: "period.startDate", name: "Inicio", center: true },
+		{ id: "period.endDate", name: "Fim", center: true },
+		{ id: "basicPriceMilkLiter", name: "Custo por (KM)", center: true },
+		{ id: "basicPriceMilkLiter", name: "Bonus por (L)", center: true },
 	]
 	const tableAction = (formData) => {
 		return (
@@ -36,7 +38,7 @@ export default function FazendeiroTab() {
 						setShowModal(true)
 						setModalData({
 							title: "Visualizar/Editar",
-							content: <ModalFazendeiro submitRef={submitRef} data={formData} />,
+							content: <ModalParametrizacao submitRef={submitRef} data={formData} />,
 							confirmText: "Salvar",
 							onConfirm: async () => {
 								if (submitRef.current) {

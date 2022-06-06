@@ -5,13 +5,13 @@ import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
 import TableContext from "../../../../../../contexts/TableContext"
 import ModalContext from "../../../../../../contexts/ModalContext"
-import ModalFazendeiro from "./_modal"
+import ModalFazenda from "./_modal"
 
-export default function FazendeiroTab() {
+export default function FazendaTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page, reloadData, setReloadData } = useContext(TableContext)
 	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
-	const modelName = "farmer"
+	const modelName = "farm"
 	const service = ServiceBase(modelName)
 	const idName = `${modelName}Id`
 	const submitRef = useRef(null)
@@ -24,8 +24,26 @@ export default function FazendeiroTab() {
 
 	const cols = [
 		{ id: "name", name: "Nome", center: false },
-		{ id: "email", name: "Email", center: false },
-		{ id: "isSupervisor", name: "Supervisor", center: true },
+		{ id: "location.city.name", name: "Cidade", center: false },
+		{ id: "location.state.name", name: "Estado", center: false },
+		{ id: "cowsHead", name: "Vacas", center: true },
+		{
+			id: "farmers",
+			name: "Fazendeiros",
+			center: true,
+			cols: [{ id: "farmer.name", name: "Nome", center: false }],
+		},
+		{
+			id: "factories",
+			name: "Fabricas",
+			center: true,
+			cols: [
+				{ id: "factory.name", name: "Nome", center: false },
+				{ id: "factory.location.city.name", name: "Cidade", center: false },
+				{ id: "factory.location.state.name", name: "Estado", center: false },
+			],
+		},
+		{ id: "supervisors", name: "Supervisores", center: true, cols: [{ id: "farmerSupervisor.name", name: "Nome", center: false }] },
 	]
 	const tableAction = (formData) => {
 		return (
@@ -36,7 +54,7 @@ export default function FazendeiroTab() {
 						setShowModal(true)
 						setModalData({
 							title: "Visualizar/Editar",
-							content: <ModalFazendeiro submitRef={submitRef} data={formData} />,
+							content: <ModalFazenda submitRef={submitRef} data={formData} />,
 							confirmText: "Salvar",
 							onConfirm: async () => {
 								if (submitRef.current) {

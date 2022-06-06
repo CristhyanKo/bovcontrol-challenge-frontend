@@ -6,6 +6,7 @@ export function TableProvider({ children }) {
 	const [page, setPage] = useState(1)
 	const [limit, setLimit] = useState(10)
 	const [totalPages, setTotalPages] = useState(1)
+	const [reloadData, setReloadData] = useState(false)
 
 	return (
 		<TableContext.Provider
@@ -16,6 +17,8 @@ export function TableProvider({ children }) {
 				setLimit,
 				totalPages,
 				setTotalPages,
+				reloadData,
+				setReloadData,
 			}}
 		>
 			{children}

@@ -49,8 +49,8 @@ export const BoxHeader = styled.div`
 	}
 `
 export const BoxContent = styled.div`
-	${(props) => (props.height ? "height:auto" : "min-height: 300px")};
-
+	min-height: 300px;
+	height: 1px;
 	padding: 20px 0;
 
 	@media (max-width: 700px) {

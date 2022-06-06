@@ -106,3 +106,16 @@ export const TableFooter = styled.div`
 		}
 	}
 `
+
+export const Empty = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	color: #797979;
+	span {
+		margin-top: 30px;
+	}
+`

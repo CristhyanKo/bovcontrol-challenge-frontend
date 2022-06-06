@@ -10,11 +10,14 @@ import { TableProvider } from "../../../contexts/TableContext"
 import ModalContext from "../../../contexts/ModalContext"
 import Modal from "../Modal"
 import AlertModal from "../AlertModal"
+import CowMilkLoading from "../Animations/CoewMilkLoading"
+import PageContainerContext from "../../../contexts/PageContainerContext"
 
 export default function PageContainer({ children, title, backButton }) {
 	const route = useRouter()
 	const { activePage, setActivePage } = useContext(MenuContext)
 	const { showModal, showAlertModal } = useContext(ModalContext)
+	const { pageIsLoading } = useContext(PageContainerContext)
 
 	useEffect(() => {
 		const path = route.pathname.split("/")[1]
@@ -38,6 +41,7 @@ export default function PageContainer({ children, title, backButton }) {
 				setActivePage({ page: "contato", color: "#90a3ab" })
 				break
 			default:
+				setActivePage({ page: "inicio", color: "#12b5f3" })
 				break
 		}
 	}, [])
@@ -47,24 +51,24 @@ export default function PageContainer({ children, title, backButton }) {
 			<Head>
 				<title>MuuCow {title && ` - ${title}`}</title>
 			</Head>
+			<TableProvider>
+				{showModal && <Modal />}
+				{showAlertModal && <AlertModal />}
+				<Page>
+					<Header />
 
-			{showModal && <Modal />}
-			{showAlertModal && <AlertModal />}
-			<Page>
-				<Header />
+					<Content backButton={backButton} borderColor={activePage.color}>
+						{backButton && (
+							<BackButtom className='animate__animated animate__rubberBand' onClick={() => route.back()} color={activePage.color}>
+								<TiArrowBack />
+							</BackButtom>
+						)}
+						{pageIsLoading ? <CowMilkLoading /> : <Child backButton={backButton}>{children}</Child>}
+					</Content>
 
-				<Content backButton={backButton} borderColor={activePage.color}>
-					{backButton && (
-						<BackButtom className='animate__animated animate__rubberBand' onClick={() => route.back()} color={activePage.color}>
-							<TiArrowBack />
-						</BackButtom>
-					)}
-					<TableProvider>
-						<Child backButton={backButton}>{children}</Child>
-					</TableProvider>
-				</Content>
-				<Footer />
-			</Page>
+					<Footer />
+				</Page>
+			</TableProvider>
 		</>
 	)
 }

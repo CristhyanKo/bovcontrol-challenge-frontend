@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from "react"
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr"
-import { Row, TableColumn, TableComponent, TableContent, TableFooter, TableHeader, TableRow } from "./style"
+import { Empty, Row, TableColumn, TableComponent, TableContent, TableFooter, TableHeader, TableRow } from "./style"
 import checkTypes from "../../../../helper/checkTypes"
 import TableContext from "../../../../contexts/TableContext"
 import Button from "../Button"
+import ModalContext from "../../../../contexts/ModalContext"
+import CowAbduction from "../../Animations/cowAbduction"
 
 export default function Table({ data, cols, actions }) {
 	const [columns, setColumns] = useState([])
 	const [rows, setRows] = useState([])
 	const { setPage, setLimit, page, totalPages } = useContext(TableContext)
+	const { setShowModal, setModalData } = useContext(ModalContext)
 
 	useEffect(() => {
 		setPage(1)
@@ -25,6 +28,18 @@ export default function Table({ data, cols, actions }) {
 		}
 	}, [data])
 
+	const handleOpenModalDetails = (dataDetails, detailCols, title) => {
+		setShowModal(true)
+		setModalData({
+			title,
+			content: <Table data={dataDetails} cols={detailCols} />,
+			confirmText: "Fechar",
+			onConfirm: async () => {
+				setShowModal(false)
+			},
+		})
+	}
+
 	const mountRowData = (row, col) => {
 		switch (true) {
 			case checkTypes.isBooelan(row[col.id]):
@@ -34,6 +49,8 @@ export default function Table({ data, cols, actions }) {
 				const item = itens.reduce((acc, cur) => acc[cur], row)
 				return item
 			}
+			case checkTypes.isArray(row[col.id]):
+				return <Button onClick={() => handleOpenModalDetails(row[col.id], col.cols, col.name)}>Visualizar</Button>
 			default:
 				return row[col.id]
 		}
@@ -49,15 +66,21 @@ export default function Table({ data, cols, actions }) {
 				))}
 			</TableHeader>
 			<TableContent>
-				{rows.map((row, key) => (
-					<TableRow key={key}>
-						{columns.map((col) => (
-							<Row center={col.center} key={col.id}>
-								{mountRowData(row, col)}
-							</Row>
-						))}
-					</TableRow>
-				))}
+				{rows.length > 0 ? (
+					rows.map((row, key) => (
+						<TableRow key={key}>
+							{columns.map((col) => (
+								<Row center={col.center} key={col.id}>
+									{mountRowData(row, col)}
+								</Row>
+							))}
+						</TableRow>
+					))
+				) : (
+					<Empty>
+						<CowAbduction /> <span>Nenhuma informação encontrada.</span>
+					</Empty>
+				)}
 			</TableContent>
 			<TableFooter>
 				{page > 1 && (

@@ -1,18 +1,23 @@
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import MenuContext from "../../../../../contexts/MenuContext"
+import PageContainerContext from "../../../../../contexts/PageContainerContext"
 import { Box, MenuItem } from "./style"
 
 export default function Menu() {
 	const route = useRouter()
 	const { activePage, setActivePage } = useContext(MenuContext)
+	const { setPageIsLoading } = useContext(PageContainerContext)
 
 	const handleClick = (item) => {
+		setPageIsLoading(true)
 		setActivePage({
 			page: item.page,
 			color: item.color,
 		})
-		route.push(`/${item.page === "inicio" ? "/" : item.page}`)
+		setTimeout(() => {
+			route.push(`/${item.page === "inicio" ? "/" : item.page}`)
+		}, 865)
 	}
 
 	return (

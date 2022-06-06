@@ -5,13 +5,13 @@ import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
 import TableContext from "../../../../../../contexts/TableContext"
 import ModalContext from "../../../../../../contexts/ModalContext"
-import ModalFazendeiro from "./_modal"
+import ModalFabrica from "./_modal"
 
-export default function FazendeiroTab() {
+export default function FabricaTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page, reloadData, setReloadData } = useContext(TableContext)
 	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
-	const modelName = "farmer"
+	const modelName = "factory"
 	const service = ServiceBase(modelName)
 	const idName = `${modelName}Id`
 	const submitRef = useRef(null)
@@ -24,8 +24,8 @@ export default function FazendeiroTab() {
 
 	const cols = [
 		{ id: "name", name: "Nome", center: false },
-		{ id: "email", name: "Email", center: false },
-		{ id: "isSupervisor", name: "Supervisor", center: true },
+		{ id: "location.city.name", name: "Cidade", center: false },
+		{ id: "location.state.name", name: "Estado", center: false },
 	]
 	const tableAction = (formData) => {
 		return (
@@ -36,7 +36,7 @@ export default function FazendeiroTab() {
 						setShowModal(true)
 						setModalData({
 							title: "Visualizar/Editar",
-							content: <ModalFazendeiro submitRef={submitRef} data={formData} />,
+							content: <ModalFabrica submitRef={submitRef} data={formData} />,
 							confirmText: "Salvar",
 							onConfirm: async () => {
 								if (submitRef.current) {

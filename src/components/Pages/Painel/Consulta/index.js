@@ -1,8 +1,12 @@
 import { useContext, useState } from "react"
 import MenuContext from "../../../../contexts/MenuContext"
 import { ConsultaContent, TabOption, Tabs } from "./style"
+import ChecklistTab from "./Tabs/Checklist"
 import FabricaTab from "./Tabs/Fabrica"
+import FazendaTab from "./Tabs/Fazenda"
 import FazendeiroTab from "./Tabs/Fazendeiro"
+import ParametrizacaoTab from "./Tabs/Parametrizacao"
+import ProducaoTab from "./Tabs/Producao"
 
 export function Consulta() {
 	const [activeTab, setActiveTab] = useState("fazendeiro")
@@ -18,6 +22,15 @@ export function Consulta() {
 				return <FazendeiroTab />
 			case "fabrica":
 				return <FabricaTab />
+			case "fazenda":
+				return <FazendaTab />
+			case "producao":
+				return <ProducaoTab />
+			case "checklist":
+				return <ChecklistTab />
+			case "parametrizacao":
+				return <ParametrizacaoTab />
+
 			default:
 				return null
 		}

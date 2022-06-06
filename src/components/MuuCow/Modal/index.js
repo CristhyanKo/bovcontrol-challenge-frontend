@@ -13,7 +13,7 @@ export default function Modal() {
 
 	return (
 		<Area>
-			<Box width={modalData.width}>
+			<Box className='animate__animated animate__backInUp animate__faster' width={modalData.width}>
 				<BoxHeader>
 					<Title>
 						<h2>{modalData.title}</h2>

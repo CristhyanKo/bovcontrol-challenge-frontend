@@ -1,10 +1,11 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useRef } from "react"
 
 const ModalContext = createContext()
 
 export function ModalProvider({ children }) {
 	const [showModal, setShowModal] = useState(false)
 	const [modalData, setModalData] = useState({})
+	const submitButtomRef = useRef(null)
 	const [modalFormData, setModalFormData] = useState({})
 	const [showAlertModal, setShowAlertModal] = useState(false)
 	const [alertModalData, setAlertModalData] = useState({})
@@ -25,6 +26,7 @@ export function ModalProvider({ children }) {
 				setAlertModalData,
 				onConfirmAlertData,
 				setOnConfirmAlertData,
+				submitButtomRef,
 			}}
 		>
 			{children}
