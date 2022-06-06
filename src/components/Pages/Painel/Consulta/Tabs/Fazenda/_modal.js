@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { useContext } from "react"
 import * as Yup from "yup"
-import MapContext from "../../../../../../contexts/MapContext"
 import TableContext from "../../../../../../contexts/TableContext"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import Form from "../../../../../MuuCow/Common/Form"
@@ -9,7 +8,6 @@ import InputGroup from "../../../../../MuuCow/Common/InputGroup"
 
 export default function ModalFazenda({ data, submitRef, modelName }) {
 	const { setReloadData } = useContext(TableContext)
-	const { latitude, longitude, setLatitude, setLongitude } = useContext(MapContext)
 	const service = ServiceBase(modelName)
 	const schema = {
 		validation: Yup.object().shape({

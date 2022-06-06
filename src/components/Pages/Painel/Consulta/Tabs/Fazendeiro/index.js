@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react"
-import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa"
+import { FaRegEdit } from "react-icons/fa"
 import Table from "../../../../../MuuCow/Common/Table"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
@@ -10,10 +10,10 @@ import ModalFazendeiro from "./_modal"
 export default function FazendeiroTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page, reloadData, setReloadData } = useContext(TableContext)
-	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
+	const { setShowModal, setModalData } = useContext(ModalContext)
 	const modelName = "farmer"
 	const service = ServiceBase(modelName)
-	const idName = `${modelName}Id`
+	// const idName = `${modelName}Id`
 	const submitRef = useRef(null)
 
 	const getInitialData = async () => {

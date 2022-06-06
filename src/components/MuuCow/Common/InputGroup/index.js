@@ -1,12 +1,12 @@
 import { Field } from "formik"
 import dynamic from "next/dynamic"
 import InputMask from "react-input-mask"
+import { useEffect, useContext, useState } from "react"
 import MapContext from "../../../../contexts/MapContext"
 import Checkbox from "../Checkbox"
 import { Error, GropuInputsCheckbox, Group, GroupCheckbox, Map } from "./style"
 import MuuSelect from "../Select"
 import ServiceBase from "../../../../services/ServiceBase"
-import { useEffect, useContext, useState } from "react"
 
 export default function InputGroup({ id, name, type, title, placeholder, errors, disabled, mask, noMarginTop }) {
 	const { latitude, longitude } = useContext(MapContext)
@@ -19,20 +19,22 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 
 	const MapComponent = dynamic(() => import("../Map"), { ssr: false })
 
+	const getOptions = async () => {
+		const opts = await service.getAllFull()
+
+		setOptions(
+			opts.map((option) => ({
+				value: option._id,
+				label: option.name,
+			}))
+		)
+	}
+
 	useEffect(() => {
 		if (type === "select") {
 			getOptions()
 		}
 	}, [id])
-
-	const getOptions = async () => {
-		const opts = await service.getAllFull()
-
-		setOptions(opts.map((option) => ({
-			value: option._id,
-			label: option.name,
-		})))
-	}
 
 	if (type === "map") {
 		return (

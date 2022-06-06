@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react"
-import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa"
+import { FaRegEdit } from "react-icons/fa"
 import Table from "../../../../../MuuCow/Common/Table"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
@@ -10,10 +10,10 @@ import ModalFabrica from "./_modal"
 export default function FabricaTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page, reloadData, setReloadData } = useContext(TableContext)
-	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
+	const { setShowModal, setModalData } = useContext(ModalContext)
 	const modelName = "factory"
 	const service = ServiceBase(modelName)
-	const idName = `${modelName}Id`
+	// const idName = `${modelName}Id`
 	const submitRef = useRef(null)
 
 	const getInitialData = async () => {
@@ -22,10 +22,7 @@ export default function FabricaTab() {
 		setTotalPages(initialData.totalPages)
 	}
 
-	const cols = [
-		{ id: "name", name: "Nome", center: false },
-
-	]
+	const cols = [{ id: "name", name: "Nome", center: false }]
 	const tableAction = (formData) => {
 		return (
 			<>

@@ -27,8 +27,8 @@ export default function ModalFabrica({ data, submitRef, modelName }) {
 			name: values.name,
 			location: {
 				coordinates: {
-					latitude: latitude,
-					longitude: longitude,
+					latitude,
+					longitude,
 				},
 			},
 		}

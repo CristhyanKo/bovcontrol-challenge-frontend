@@ -1,20 +1,18 @@
-import { useContext, useEffect, useState, useRef } from "react"
-import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa"
+import { useContext, useEffect, useState } from "react"
+import { FaRegTrashAlt } from "react-icons/fa"
 import Table from "../../../../../MuuCow/Common/Table"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import Button from "../../../../../MuuCow/Common/Button"
 import TableContext from "../../../../../../contexts/TableContext"
 import ModalContext from "../../../../../../contexts/ModalContext"
-import ModalProducao from "./_modal"
 
 export default function ProducaoTab() {
 	const [data, setData] = useState([])
 	const { setTotalPages, page, reloadData, setReloadData } = useContext(TableContext)
-	const { setShowModal, setModalData, setShowAlertModal, setAlertModalData } = useContext(ModalContext)
+	const { setShowAlertModal, setAlertModalData } = useContext(ModalContext)
 	const modelName = "production"
 	const service = ServiceBase(modelName)
 	const idName = `${modelName}Id`
-	const submitRef = useRef(null)
 
 	const getInitialData = async () => {
 		const initialData = await service.getAll(page, 10)
