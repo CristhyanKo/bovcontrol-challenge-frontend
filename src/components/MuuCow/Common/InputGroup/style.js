@@ -55,3 +55,7 @@ export const GropuInputsCheckbox = styled.div`
 		align-items: center;
 	}
 `
+
+export const Map = styled.div`
+	margin-top: 20px;
+`

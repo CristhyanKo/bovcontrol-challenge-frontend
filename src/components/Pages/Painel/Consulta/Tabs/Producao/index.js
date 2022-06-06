@@ -30,7 +30,7 @@ export default function ProducaoTab() {
 	const tableAction = (formData) => {
 		return (
 			<>
-				<Button
+				{/* <Button
 					color='#00AB77'
 					onClick={() => {
 						setShowModal(true)
@@ -52,7 +52,7 @@ export default function ProducaoTab() {
 					mr='5px'
 				>
 					<FaRegEdit />
-				</Button>
+				</Button> */}
 				<Button
 					color='#00AB77'
 					onClick={() => {

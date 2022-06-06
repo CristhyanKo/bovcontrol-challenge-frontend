@@ -16,6 +16,7 @@ export default function Checkbox({ checked, ...props }) {
 			<CustomCheckBox
 				checked={check}
 				onClick={() => {
+					checkEl.current.click()
 					setcheck(!check)
 				}}
 			>

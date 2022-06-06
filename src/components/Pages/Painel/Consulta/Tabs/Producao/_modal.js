@@ -8,7 +8,7 @@ import InputGroup from "../../../../../MuuCow/Common/InputGroup"
 
 export default function ModalProducao({ data, submitRef }) {
 	const { setReloadData } = useContext(TableContext)
-	const service = ServiceBase("farmer")
+	const service = ServiceBase("production")
 	const schema = {
 		validation: Yup.object().shape({
 			nome: Yup.string().required("O nome é obrigatório"),

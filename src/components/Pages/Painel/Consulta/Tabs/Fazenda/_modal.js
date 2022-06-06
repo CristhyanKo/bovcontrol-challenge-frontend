@@ -1,23 +1,25 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { useContext } from "react"
 import * as Yup from "yup"
+import MapContext from "../../../../../../contexts/MapContext"
 import TableContext from "../../../../../../contexts/TableContext"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import Form from "../../../../../MuuCow/Common/Form"
 import InputGroup from "../../../../../MuuCow/Common/InputGroup"
 
-export default function ModalFazenda({ data, submitRef }) {
+export default function ModalFazenda({ data, submitRef, modelName }) {
 	const { setReloadData } = useContext(TableContext)
-	const service = ServiceBase("farmer")
+	const { latitude, longitude, setLatitude, setLongitude } = useContext(MapContext)
+	const service = ServiceBase(modelName)
 	const schema = {
 		validation: Yup.object().shape({
-			nome: Yup.string().required("O nome é obrigatório"),
+			name: Yup.string().required("O nome é obrigatório"),
 			email: Yup.string().email("O email é inválido").required("O email é obrigatório"),
 			isSupervisor: Yup.boolean(),
 		}),
 
 		initialValues: {
-			nome: data.name,
+			name: data.name,
 			email: data.email,
 			phone: data.phone,
 			isSupervisor: data.isSupervisor,
@@ -27,7 +29,7 @@ export default function ModalFazenda({ data, submitRef }) {
 	const submit = async (values) => {
 		const updateDate = {
 			farmerId: data._id,
-			name: values.nome,
+			name: values.name,
 			email: values.email,
 			phone: values.phone,
 			isSupervisor: values.isSupervisor,

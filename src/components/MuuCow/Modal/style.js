@@ -52,6 +52,7 @@ export const BoxContent = styled.div`
 	min-height: 300px;
 	height: 1px;
 	padding: 20px 0;
+	overflow: auto;
 
 	@media (max-width: 700px) {
 		max-height: 500px;

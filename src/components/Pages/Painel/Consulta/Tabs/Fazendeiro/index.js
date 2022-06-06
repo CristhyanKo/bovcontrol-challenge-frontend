@@ -53,7 +53,7 @@ export default function FazendeiroTab() {
 				>
 					<FaRegEdit />
 				</Button>
-				<Button
+				{/* <Button
 					color='#00AB77'
 					onClick={() => {
 						setShowAlertModal(true)
@@ -73,7 +73,7 @@ export default function FazendeiroTab() {
 					}}
 				>
 					<FaRegTrashAlt />
-				</Button>
+				</Button> */}
 			</>
 		)
 	}

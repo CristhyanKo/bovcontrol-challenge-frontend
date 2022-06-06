@@ -19,6 +19,11 @@ class Base {
 		const response = await api.get(`${this.routeBase}/getAll?page=${page || 1}&limit=${limit || 10}`)
 		return response.data.result.data
 	}
+
+	async getAllFull() {
+		const response = await api.get(`${this.routeBase}/getAll`)
+		return response.data.result.data
+	}
 }
 
 export default function ServiceBase(routeBase) {

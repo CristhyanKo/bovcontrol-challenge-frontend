@@ -39,8 +39,8 @@ export default function FazendaTab() {
 			center: true,
 			cols: [
 				{ id: "factory.name", name: "Nome", center: false },
-				{ id: "factory.location.city.name", name: "Cidade", center: false },
-				{ id: "factory.location.state.name", name: "Estado", center: false },
+				// { id: "factory.location.city.name", name: "Cidade", center: false },
+				// { id: "factory.location.state.name", name: "Estado", center: false },
 			],
 		},
 		{ id: "supervisors", name: "Supervisores", center: true, cols: [{ id: "farmerSupervisor.name", name: "Nome", center: false }] },
@@ -54,7 +54,7 @@ export default function FazendaTab() {
 						setShowModal(true)
 						setModalData({
 							title: "Visualizar/Editar",
-							content: <ModalFazenda submitRef={submitRef} data={formData} />,
+							content: <ModalFazenda submitRef={submitRef} data={formData} modelName={modelName} />,
 							confirmText: "Salvar",
 							onConfirm: async () => {
 								if (submitRef.current) {
@@ -71,7 +71,7 @@ export default function FazendaTab() {
 				>
 					<FaRegEdit />
 				</Button>
-				<Button
+				{/* <Button
 					color='#00AB77'
 					onClick={() => {
 						setShowAlertModal(true)
@@ -91,7 +91,7 @@ export default function FazendaTab() {
 					}}
 				>
 					<FaRegTrashAlt />
-				</Button>
+				</Button> */}
 			</>
 		)
 	}

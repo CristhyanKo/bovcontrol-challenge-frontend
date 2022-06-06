@@ -52,7 +52,7 @@ export default function ChecklistTab() {
 				>
 					<FaRegEdit />
 				</Button>
-				<Button
+				{/* <Button
 					color='#00AB77'
 					onClick={() => {
 						setShowAlertModal(true)
@@ -72,7 +72,7 @@ export default function ChecklistTab() {
 					}}
 				>
 					<FaRegTrashAlt />
-				</Button>
+				</Button> */}
 			</>
 		)
 	}

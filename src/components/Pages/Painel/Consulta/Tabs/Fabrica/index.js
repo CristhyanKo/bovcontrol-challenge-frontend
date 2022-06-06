@@ -24,8 +24,7 @@ export default function FabricaTab() {
 
 	const cols = [
 		{ id: "name", name: "Nome", center: false },
-		{ id: "location.city.name", name: "Cidade", center: false },
-		{ id: "location.state.name", name: "Estado", center: false },
+
 	]
 	const tableAction = (formData) => {
 		return (
@@ -36,7 +35,7 @@ export default function FabricaTab() {
 						setShowModal(true)
 						setModalData({
 							title: "Visualizar/Editar",
-							content: <ModalFabrica submitRef={submitRef} data={formData} />,
+							content: <ModalFabrica submitRef={submitRef} data={formData} modelName={modelName} />,
 							confirmText: "Salvar",
 							onConfirm: async () => {
 								if (submitRef.current) {
@@ -53,7 +52,7 @@ export default function FabricaTab() {
 				>
 					<FaRegEdit />
 				</Button>
-				<Button
+				{/* <Button
 					color='#00AB77'
 					onClick={() => {
 						setShowAlertModal(true)
@@ -73,7 +72,7 @@ export default function FabricaTab() {
 					}}
 				>
 					<FaRegTrashAlt />
-				</Button>
+				</Button> */}
 			</>
 		)
 	}
