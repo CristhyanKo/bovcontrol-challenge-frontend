@@ -12,12 +12,13 @@ import Modal from "../Modal"
 import AlertModal from "../AlertModal"
 import CowMilkLoading from "../Animations/CoewMilkLoading"
 import PageContainerContext from "../../../contexts/PageContainerContext"
+import PopAlert from "../PopAlert"
 
 export default function PageContainer({ children, title, backButton }) {
 	const route = useRouter()
 	const { activePage, setActivePage } = useContext(MenuContext)
 	const { showModal, showAlertModal } = useContext(ModalContext)
-	const { pageIsLoading } = useContext(PageContainerContext)
+	const { pageIsLoading, popAlert } = useContext(PageContainerContext)
 
 	useEffect(() => {
 		const path = route.pathname.split("/")[1]
@@ -56,7 +57,7 @@ export default function PageContainer({ children, title, backButton }) {
 				{showAlertModal && <AlertModal />}
 				<Page>
 					<Header />
-
+					{popAlert && <PopAlert />}
 					<Content backButton={backButton} borderColor={activePage.color}>
 						{backButton && (
 							<BackButtom className='animate__animated animate__rubberBand' onClick={() => route.back()} color={activePage.color}>

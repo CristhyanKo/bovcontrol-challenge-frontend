@@ -5,6 +5,11 @@ class Base {
 		this.routeBase = routeBase
 	}
 
+	async store(data) {
+		const response = await api.post(`${this.routeBase}/store`, data)
+		return response.data.result.data
+	}
+
 	async update(data) {
 		const response = await api.post(`${this.routeBase}/update`, data)
 		return response.data.result.data
@@ -21,7 +26,7 @@ class Base {
 	}
 
 	async getAllFull() {
-		const response = await api.get(`${this.routeBase}/getAll`)
+		const response = await api.get(`${this.routeBase}/getAllFull`)
 		return response.data.result.data
 	}
 }

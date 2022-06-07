@@ -20,3 +20,17 @@ export const Cols = styled.div`
 		margin-top: 0;
 	}
 `
+
+export const Actions = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 30px;
+
+	button {
+		margin-right: 10px;
+
+		:last-child {
+			margin-right: 0;
+		}
+	}
+`

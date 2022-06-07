@@ -25,6 +25,7 @@ export default function FazendeiroTab() {
 	const cols = [
 		{ id: "name", name: "Nome", center: false },
 		{ id: "email", name: "Email", center: false },
+		{ id: "phone", name: "Telefone", center: true },
 		{ id: "isSupervisor", name: "Supervisor", center: true },
 	]
 	const tableAction = (formData) => {
@@ -37,16 +38,6 @@ export default function FazendeiroTab() {
 						setModalData({
 							title: "Visualizar/Editar",
 							content: <ModalFazendeiro submitRef={submitRef} data={formData} />,
-							confirmText: "Salvar",
-							onConfirm: async () => {
-								if (submitRef.current) {
-									submitRef.current.handleSubmit()
-									setShowModal(false)
-								}
-							},
-							onClose: () => {
-								setShowModal(false)
-							},
 						})
 					}}
 					mr='5px'

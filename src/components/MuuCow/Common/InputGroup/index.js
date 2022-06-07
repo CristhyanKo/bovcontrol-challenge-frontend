@@ -8,9 +8,9 @@ import { Error, GropuInputsCheckbox, Group, GroupCheckbox, Map } from "./style"
 import MuuSelect from "../Select"
 import ServiceBase from "../../../../services/ServiceBase"
 
-export default function InputGroup({ id, name, type, title, placeholder, errors, disabled, mask, noMarginTop }) {
+export default function InputGroup({ id, name, type, title, placeholder, errors, disabled, mask, noMarginTop, values, setFieldValue, data }) {
 	const { latitude, longitude } = useContext(MapContext)
-	const [options, setOptions] = useState([{ value: "", label: "Selecione..." }])
+	const [options, setOptions] = useState([])
 	const service = ServiceBase(id)
 
 	const maskInput = ({ field }) => {
@@ -32,17 +32,21 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 
 	useEffect(() => {
 		if (type === "select") {
-			getOptions()
+			if (data) {
+				setOptions(data)
+			} else {
+				getOptions()
+			}
 		}
 	}, [id])
 
 	if (type === "map") {
 		return (
 			<Map>
-				<label>Localização</label>
+				<label>Localização (Clique e arraste o marcador para mudar o local)</label>
 				<MapComponent lat={latitude} lng={longitude} />
-				<Field id='latitude' name='latitude' value={latitude} disabled hidden />
-				<Field id='longitude' name='longitude' value={longitude} disabled hidden />
+				<Field id='latitude' name='latitude' type='number' value={latitude} disabled hidden />
+				<Field id='longitude' name='longitude' type='number' value={longitude} disabled hidden />
 			</Map>
 		)
 	}
@@ -65,10 +69,7 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 		return (
 			<Group noMarginTop={noMarginTop}>
 				<label htmlFor={id}>{title}</label>
-				<Field id={id} name={name} type={type} disabled={disabled}>
-					{({ field }) => <MuuSelect {...field} id={id} name={name} options={options} />}
-				</Field>
-
+				<MuuSelect id={id} value={values[id]} onChange={(value) => setFieldValue(id, value.value)} disabled={disabled} options={options} />
 				{errors[name] && (
 					<Error>
 						<span>{errors[name]}</span>

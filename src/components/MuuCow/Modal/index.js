@@ -23,19 +23,23 @@ export default function Modal() {
 				</BoxHeader>
 				<Hr />
 				<BoxContent height={modalData.height}>{modalData.content}</BoxContent>
-				{modalData.hr ? "" : <Hr m={20} />}
-				<BoxFooter>
-					{modalData.onClose && (
-						<Button onClick={modalData.onClose} width='120px'>
-							Cancelar
-						</Button>
-					)}
-					{modalData.onConfirm && (
-						<Button color='#00AB77' onClick={modalData.onConfirm} width='120px'>
-							{modalData.confirmText || "Confirmar"}
-						</Button>
-					)}
-				</BoxFooter>
+				{(modalData.onClose || modalData.onConfirm) && (
+					<>
+						{modalData.hr ? "" : <Hr m={20} />}
+						<BoxFooter BoxFooter>
+							{modalData.onClose && (
+								<Button onClick={modalData.onClose} width='120px'>
+									Cancelar
+								</Button>
+							)}
+							{modalData.onConfirm && (
+								<Button color='#00AB77' onClick={modalData.onConfirm} width='120px'>
+									{modalData.confirmText || "Confirmar"}
+								</Button>
+							)}
+						</BoxFooter>
+					</>
+				)}
 			</Box>
 		</Area>
 	)

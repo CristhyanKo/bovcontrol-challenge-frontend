@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FaRegEdit } from "react-icons/fa"
 import Table from "../../../../../MuuCow/Common/Table"
 import ServiceBase from "../../../../../../services/ServiceBase"
@@ -13,8 +13,6 @@ export default function FabricaTab() {
 	const { setShowModal, setModalData } = useContext(ModalContext)
 	const modelName = "factory"
 	const service = ServiceBase(modelName)
-	// const idName = `${modelName}Id`
-	const submitRef = useRef(null)
 
 	const getInitialData = async () => {
 		const initialData = await service.getAll(page, 10)
@@ -32,17 +30,7 @@ export default function FabricaTab() {
 						setShowModal(true)
 						setModalData({
 							title: "Visualizar/Editar",
-							content: <ModalFabrica submitRef={submitRef} data={formData} modelName={modelName} />,
-							confirmText: "Salvar",
-							onConfirm: async () => {
-								if (submitRef.current) {
-									submitRef.current.handleSubmit()
-									setShowModal(false)
-								}
-							},
-							onClose: () => {
-								setShowModal(false)
-							},
+							content: <ModalFabrica data={formData} modelName={modelName} />,
 						})
 					}}
 					mr='5px'

@@ -1,14 +1,18 @@
 import { Formik, Form as FormFormik } from "formik"
 import React from "react"
-import { Cols } from "./style"
+import { useRouter } from "next/router"
+import Button from "../Button"
+import { Actions, Cols } from "./style"
 
-export default function Form({ children, schema, onSubmit, cols, submitRef, width }) {
+export default function Form({ children, schema, onSubmit, cols, width, type, onCancel, backButton }) {
 	const colsChilds = []
+	const route = useRouter()
+
 	let colsCount = 1
 	return (
 		<div style={{ width: `${width || "100%"}` }}>
-			<Formik onSubmit={onSubmit} validationSchema={schema.validation} initialValues={schema.initialValues} innerRef={submitRef}>
-				{({ errors }) => (
+			<Formik onSubmit={onSubmit} validationSchema={schema.validation} initialValues={schema.initialValues}>
+				{({ errors, values, isValid, setFieldValue }) => (
 					<FormFormik>
 						{React.Children.map(children, (child) => {
 							let finalRender = null
@@ -20,7 +24,7 @@ export default function Form({ children, schema, onSubmit, cols, submitRef, widt
 									finalRender = (
 										<Cols>
 											{colsChilds.map((elem) => {
-												return React.cloneElement(elem, { errors, noMarginTop: cols > 1 })
+												return React.cloneElement(elem, { errors, noMarginTop: cols > 1, values, setFieldValue })
 											})}
 										</Cols>
 									)
@@ -29,11 +33,26 @@ export default function Form({ children, schema, onSubmit, cols, submitRef, widt
 									colsCount = 0
 								}
 							} else {
-								finalRender = React.cloneElement(child, { errors })
+								finalRender = React.cloneElement(child, { errors, noMarginTop: cols > 1, values, setFieldValue })
 							}
 
 							return finalRender
 						})}
+						<Actions>
+							{backButton && (
+								<Button color='#525252' onClick={() => route.back()} type='button'>
+									Voltar
+								</Button>
+							)}
+							{onCancel && (
+								<Button color='#525252' onClick={() => onCancel(values)} type='button'>
+									Cancelar
+								</Button>
+							)}
+							<Button disabled={!isValid} color='#00AB77' type='submit'>
+								{type === "update" ? "Salvar" : "Criar"}
+							</Button>
+						</Actions>
 					</FormFormik>
 				)}
 			</Formik>

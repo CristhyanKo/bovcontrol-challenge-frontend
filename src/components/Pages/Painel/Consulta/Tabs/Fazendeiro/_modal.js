@@ -1,28 +1,14 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { useContext } from "react"
-import * as Yup from "yup"
+import ModalContext from "../../../../../../contexts/ModalContext"
 import TableContext from "../../../../../../contexts/TableContext"
 import ServiceBase from "../../../../../../services/ServiceBase"
-import Form from "../../../../../MuuCow/Common/Form"
-import InputGroup from "../../../../../MuuCow/Common/InputGroup"
+import FazendeiroForm from "../../../_forms/FazendeiroForm"
 
-export default function ModalFazendeiro({ data, submitRef }) {
+export default function ModalFazendeiro({ data }) {
 	const { setReloadData } = useContext(TableContext)
+	const { setShowModal } = useContext(ModalContext)
 	const service = ServiceBase("farmer")
-	const schema = {
-		validation: Yup.object().shape({
-			name: Yup.string().required("O nome é obrigatório"),
-			email: Yup.string().email("O email é inválido").required("O email é obrigatório"),
-			isSupervisor: Yup.boolean(),
-		}),
-
-		initialValues: {
-			name: data.name,
-			email: data.email,
-			phone: data.phone,
-			isSupervisor: data.isSupervisor,
-		},
-	}
 
 	const submit = async (values) => {
 		const updateDate = {
@@ -34,16 +20,19 @@ export default function ModalFazendeiro({ data, submitRef }) {
 		}
 
 		await service.update(updateDate).then(() => {
+			setShowModal(false)
 			setReloadData(true)
 		})
 	}
 
 	return (
-		<Form schema={schema} onSubmit={submit} cols={0} submitRef={submitRef}>
-			<InputGroup id='name' name='name' type='text' title='Nome' placeholder='Informe o nome do Fazendeiro' />
-			<InputGroup id='email' name='email' type='email' title='Email' placeholder='Informe o email do Fazendeiro' />
-			<InputGroup id='phone' name='phone' type='text' title='Telefone' placeholder='Informe o telefone do Fazendeiro' mask='(99) 9 9999-9999' />
-			<InputGroup id='isSupervisor' name='isSupervisor' title='É um supervisor ?' type='checkbox' placeholder='Sim' />
-		</Form>
+		<FazendeiroForm
+			data={data}
+			type='update'
+			onSubmit={submit}
+			onCancel={() => {
+				setShowModal(false)
+			}}
+		/>
 	)
 }

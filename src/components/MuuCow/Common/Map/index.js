@@ -1,6 +1,6 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
 import L from "leaflet"
-import { useMemo, useState, useRef, useContext } from "react"
+import { useMemo, useState, useRef, useContext, useEffect } from "react"
 import MapContext from "../../../../contexts/MapContext"
 
 const customIcon = new L.Icon({
@@ -30,14 +30,23 @@ export default function Map({ lat, lng }) {
 		[]
 	)
 
+	useEffect(() => {
+		if (lat === 0 && lng === 0) {
+			navigator.geolocation.getCurrentPosition((p) => {
+				const { latitude, longitude } = p.coords
+				setPosition({ lat: latitude, lng: longitude })
+			})
+		}
+	}, [])
+
 	return (
-		<MapContainer tap center={position} zoom={13} scrollWheelZoom style={{ height: "300px" }}>
+		<MapContainer center={position} zoom={2} scrollWheelZoom style={{ height: "300px" }}>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			/>
 			<Marker ref={markerRef} icon={customIcon} position={position} draggable eventHandlers={eventHandlers}>
-				<Popup>Clique e arraste o marcador para mudar a localização.</Popup>
+				<Popup>Clique e arraste o marcador para mudar o local.</Popup>
 			</Marker>
 		</MapContainer>
 	)

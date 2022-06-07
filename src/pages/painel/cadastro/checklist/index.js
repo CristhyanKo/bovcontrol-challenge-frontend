@@ -4,7 +4,7 @@ import { Form } from "./style"
 
 export default function Checklist() {
 	return (
-		<PageContainer title='Cadastro Checklist'>
+		<PageContainer title='Cadastro Checklist' backButton>
 			<Form>
 				<ChecklistForm width='60%' />
 			</Form>

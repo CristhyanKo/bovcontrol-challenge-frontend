@@ -12,19 +12,19 @@ export default function Cadastro() {
 
 	return (
 		<PainelContent>
-			<Action onClick={() => route.push("/painel/consulta")} color={activePage.color}>
+			<Action onClick={() => route.push("/painel/cadastro/fazendeiro")} color={activePage.color}>
 				<span>
 					<GiFarmer />
 				</span>
 				Fazendeiro
 			</Action>
-			<Action onClick={() => route.push("/painel/cadastro")} color={activePage.color}>
+			<Action onClick={() => route.push("/painel/cadastro/fabrica")} color={activePage.color}>
 				<span>
 					<TbBuildingFactory2 />
 				</span>
 				Fabrica
 			</Action>
-			<Action onClick={() => route.push("/painel/cadastro")} color={activePage.color}>
+			<Action onClick={() => route.push("/painel/cadastro/fazenda")} color={activePage.color}>
 				<span>
 					<GiFarmTractor />
 				</span>
