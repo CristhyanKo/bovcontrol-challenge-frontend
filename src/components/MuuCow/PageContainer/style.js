@@ -23,8 +23,12 @@ export const Content = styled.div`
 `
 
 export const Child = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 	height: 100%;
 	margin-top: ${(props) => (props.backButton ? "-20px" : "0")};
+	overflow-y: auto;
 `
 
 export const BackButtom = styled.div`

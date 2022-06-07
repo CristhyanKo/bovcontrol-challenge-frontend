@@ -44,7 +44,7 @@ export default function ModalFabrica({ data, submitRef, modelName }) {
 
 	return (
 		<Form schema={schema} onSubmit={submit} cols={0} submitRef={submitRef}>
-			<InputGroup id='nome' name='nome' type='text' title='Nome' placeholder='Informe o nome' />
+			<InputGroup id='name' name='name' type='text' title='Nome' placeholder='Informe o nome' />
 			<InputGroup id='location' name='location' title='Localização' type='map' />
 		</Form>
 	)

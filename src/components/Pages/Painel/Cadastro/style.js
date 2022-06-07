@@ -7,7 +7,6 @@ export const PainelContent = styled.div`
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	width: 100%;
 `
 
 export const Action = styled.div`
@@ -20,12 +19,14 @@ export const Action = styled.div`
 	color: #fff;
 	margin: 0 20px;
 	font-size: 32pt;
+	width: 33.3%;
 	cursor: pointer;
 	user-select: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
+	margin-bottom: 20px;
 
 	:hover {
 		background: ${(props) => pSBC(-0.2, props.color)};
