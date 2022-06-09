@@ -2,16 +2,43 @@ import { Field } from "formik"
 import dynamic from "next/dynamic"
 import InputMask from "react-input-mask"
 import { useEffect, useContext, useState } from "react"
+import { FaRegTrashAlt } from "react-icons/fa"
+import { BsPlusLg } from "react-icons/bs"
+import DatePicker from "react-datepicker"
 import MapContext from "../../../../contexts/MapContext"
 import Checkbox from "../Checkbox"
-import { Error, GropuInputsCheckbox, Group, GroupCheckbox, Map } from "./style"
+import { AarrayTable, ArrayTableHeader, Error, GropuInputsCheckbox, Group, GroupCheckbox, Map } from "./style"
 import MuuSelect from "../Select"
 import ServiceBase from "../../../../services/ServiceBase"
+import Button from "../Button"
+import Table from "../Table"
+import ModalContext from "../../../../contexts/ModalContext"
 
-export default function InputGroup({ id, name, type, title, placeholder, errors, disabled, mask, noMarginTop, values, setFieldValue, data }) {
+export default function InputGroup({
+	id,
+	name,
+	type,
+	title,
+	placeholder,
+	errors,
+	disabled,
+	mask,
+	noMarginTop,
+	values,
+	setFieldValue,
+	data,
+	cols,
+	formType,
+	height,
+	modal,
+	returnObjectFromSelect,
+	onRemove,
+	...props
+}) {
 	const { latitude, longitude } = useContext(MapContext)
 	const [options, setOptions] = useState([])
 	const service = ServiceBase(id)
+	const { setShowModal, setModalData } = useContext(ModalContext)
 
 	const maskInput = ({ field }) => {
 		return <InputMask mask={mask} maskChar=' ' {...field} id={id} name={name} type={type} placeholder={placeholder} disabled={disabled} />
@@ -24,6 +51,7 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 
 		setOptions(
 			opts.map((option) => ({
+				object: option,
 				value: option._id,
 				label: option.name,
 			}))
@@ -39,6 +67,16 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 			}
 		}
 	}, [id])
+
+	useEffect(() => {
+		if (type === "select") {
+			if (data) {
+				setOptions(data)
+			} else {
+				getOptions()
+			}
+		}
+	}, [data])
 
 	if (type === "map") {
 		return (
@@ -69,7 +107,13 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 		return (
 			<Group noMarginTop={noMarginTop}>
 				<label htmlFor={id}>{title}</label>
-				<MuuSelect id={id} value={values[id]} onChange={(value) => setFieldValue(id, value.value)} disabled={disabled} options={options} />
+				<MuuSelect
+					id={id}
+					value={values[id]}
+					onChange={(value) => setFieldValue(id, returnObjectFromSelect ? value.object : value.value)}
+					disabled={disabled}
+					options={options}
+				/>
 				{errors[name] && (
 					<Error>
 						<span>{errors[name]}</span>
@@ -79,10 +123,75 @@ export default function InputGroup({ id, name, type, title, placeholder, errors,
 		)
 	}
 
+	if (type === "datepicker") {
+		return (
+			<Group noMarginTop={noMarginTop}>
+				<label htmlFor={id}>{title}</label>
+				<Field id={id} name={name} type={type} disabled={disabled}>
+					{({ field }) => (
+						<DatePicker
+							{...field}
+							dateFormat='dd/MM/yyyy'
+							selected={(field.value && new Date(field.value)) || null}
+							onChange={(val) => {
+								setFieldValue(id, val)
+							}}
+						/>
+					)}
+				</Field>
+
+				{errors[name] && (
+					<Error>
+						<span>{errors[name]}</span>
+					</Error>
+				)}
+			</Group>
+		)
+	}
+
+	if (type === "array") {
+		const tableAction = (rowValue) => {
+			return (
+				<Button
+					color='#00AB77'
+					onClick={() => {
+						onRemove(rowValue)
+					}}
+				>
+					<FaRegTrashAlt />
+				</Button>
+			)
+		}
+
+		return (
+			<AarrayTable>
+				<ArrayTableHeader>
+					<p>{title}</p>
+					{formType === "create" && (
+						<Button
+							onClick={() => {
+								setShowModal(true)
+								setModalData({
+									title: formType === "create" ? `Cadastro ${title}` : `Editar ${title}`,
+									content: modal,
+									setFieldValue,
+								})
+							}}
+							color='#00AB77'
+						>
+							<BsPlusLg />
+						</Button>
+					)}
+				</ArrayTableHeader>
+				<Table height={height} data={data} cols={cols} actions={tableAction} noPagination />
+			</AarrayTable>
+		)
+	}
+
 	return (
 		<Group noMarginTop={noMarginTop}>
 			<label htmlFor={id}>{title}</label>
-			<Field id={id} name={name} type={type} placeholder={placeholder} disabled={disabled}>
+			<Field id={id} name={name} type={type} placeholder={placeholder} disabled={disabled} {...props}>
 				{mask && maskInput}
 			</Field>
 			{errors[name] && (

@@ -59,3 +59,14 @@ export const GropuInputsCheckbox = styled.div`
 export const Map = styled.div`
 	margin-top: 20px;
 `
+
+export const AarrayTable = styled.div`
+	margin-top: 20px;
+`
+
+export const ArrayTableHeader = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 5px;
+`

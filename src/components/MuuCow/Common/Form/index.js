@@ -7,6 +7,7 @@ import { Actions, Cols } from "./style"
 export default function Form({ children, schema, onSubmit, cols, width, type, onCancel, backButton }) {
 	const colsChilds = []
 	const route = useRouter()
+	const formType = type || "create"
 
 	let colsCount = 1
 	return (
@@ -24,7 +25,7 @@ export default function Form({ children, schema, onSubmit, cols, width, type, on
 									finalRender = (
 										<Cols>
 											{colsChilds.map((elem) => {
-												return React.cloneElement(elem, { errors, noMarginTop: cols > 1, values, setFieldValue })
+												return React.cloneElement(elem, { errors, noMarginTop: cols > 1, values, setFieldValue, formType })
 											})}
 										</Cols>
 									)
@@ -33,7 +34,7 @@ export default function Form({ children, schema, onSubmit, cols, width, type, on
 									colsCount = 0
 								}
 							} else {
-								finalRender = React.cloneElement(child, { errors, noMarginTop: cols > 1, values, setFieldValue })
+								finalRender = React.cloneElement(child, { errors, noMarginTop: cols > 1, values, setFieldValue, formType })
 							}
 
 							return finalRender

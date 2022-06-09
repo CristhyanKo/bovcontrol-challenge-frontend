@@ -40,7 +40,7 @@ export default function Map({ lat, lng }) {
 	}, [])
 
 	return (
-		<MapContainer center={position} zoom={2} scrollWheelZoom style={{ height: "300px" }}>
+		<MapContainer center={position} zoom={15} scrollWheelZoom style={{ height: "300px" }}>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
