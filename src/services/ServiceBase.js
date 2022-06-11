@@ -1,6 +1,6 @@
 import api from "../utils/api"
 
-class Base {
+export class Base {
 	constructor(routeBase) {
 		this.routeBase = routeBase
 	}

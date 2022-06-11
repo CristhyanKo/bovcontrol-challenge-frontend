@@ -1,9 +1,9 @@
 import api from "../utils/api"
-import ServiceBase from "./ServiceBase"
+import { Base } from "./ServiceBase"
 
-class Production extends ServiceBase {
-	constructor() {
-		super("production")
+class Production extends Base {
+	constructor(routeBase) {
+		super(routeBase)
 		this.routeBase = "production"
 	}
 
@@ -14,5 +14,5 @@ class Production extends ServiceBase {
 }
 
 export default function ProductionService() {
-	return new Production()
+	return new Production("production")
 }

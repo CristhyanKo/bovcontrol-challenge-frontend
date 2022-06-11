@@ -32,12 +32,23 @@ export const List = styled.div`
 export const ChecklistViewer = styled.div`
 	display: flex;
 	flex: 2;
-	height: 100%;
 	background: #e7e7e7;
 	margin-left: 40px;
 	border-radius: 8px;
 	padding: 20px;
+	height: 100%;
 	overflow: auto;
+
+	::-webkit-scrollbar {
+		width: 20px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border: 4px solid rgba(0, 0, 0, 0);
+		background-clip: padding-box;
+		border-radius: 9999px;
+		background-color: #3d31a2;
+	}
 `
 export const ListItem = styled.div`
 	display: flex;
@@ -110,6 +121,7 @@ export const ViewContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	height: 900px;
 `
 export const ViewHeader = styled.div`
 	display: flex;
@@ -124,6 +136,7 @@ export const ViewHeader = styled.div`
 export const ViewMetrics = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 20px;
 `
 
 export const Infos = styled.div`
@@ -163,17 +176,13 @@ export const Type = styled.div`
 	display: flex;
 	width: 100%;
 	box-sizing: border-box;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	background: #3d31a2;
 	color: #fff;
 	padding: 10px;
 	border-radius: 8px;
 	margin-bottom: 10px;
-
-	b {
-		margin-left: 10px;
-	}
 `
 
 export const CowMetric = styled.div`
@@ -196,6 +205,32 @@ export const CowMetric = styled.div`
 export const ProductionMetric = styled.div`
 	display: flex;
 	flex-direction: column;
+
+	h4 {
+		margin-bottom: 10px;
+	}
+`
+
+export const ToolTipChart = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #3d31a2;
+	color: #fff;
+	padding: 10px;
+	border-radius: 8px;
+`
+
+export const Supervisors = styled.div`
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	width: 100%;
+	height: 200px;
+	padding: 20px;
+	box-sizing: border-box;
+	border-radius: 8px;
+	margin-bottom: 20px;
 
 	h4 {
 		margin-bottom: 10px;

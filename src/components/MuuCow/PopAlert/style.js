@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import pSBC from "shade-blend-color"
-import contrastTextColor from "../../../helper/contrastTextColor"
 
 export const Box = styled.div`
 	display: flex;
