@@ -193,7 +193,7 @@ export default function Checklist() {
 						</ViewMetrics>
 						<Supervisors>
 							<h4>Supervisores</h4>
-							<Table data={selectedChecklist.farm.supervisors} cols={cols} noPagination />
+							<Table data={selectedChecklist.farm.supervisors} cols={cols} noPagination height='200px' />
 						</Supervisors>
 						<MapComponent lat={selectedChecklist.farm.location.coordinates.latitude} lng={selectedChecklist.farm.location.coordinates.longitude} />
 					</ViewContent>

@@ -226,7 +226,6 @@ export const Supervisors = styled.div`
 	flex-direction: column;
 	background: #fff;
 	width: 100%;
-	height: 200px;
 	padding: 20px;
 	box-sizing: border-box;
 	border-radius: 8px;
