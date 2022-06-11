@@ -4,7 +4,7 @@ import PageContainer from "../../../../components/MuuCow/PageContainer"
 import ChecklistForm from "../../../../components/Pages/Painel/_forms/ChecklistForm"
 import PageContainerContext from "../../../../contexts/PageContainerContext"
 import ServiceBase from "../../../../services/ServiceBase"
-import { Form, Page } from "./style"
+import { Form, Page } from "../../../../styles/pages/cadastro/checklist/style"
 
 export default function Checklist() {
 	const router = useRouter()

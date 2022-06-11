@@ -4,7 +4,7 @@ import PageContainer from "../../../../components/MuuCow/PageContainer"
 import ProducaoForm from "../../../../components/Pages/Painel/_forms/ProducaoForm"
 import PageContainerContext from "../../../../contexts/PageContainerContext"
 import ServiceBase from "../../../../services/ServiceBase"
-import { Form, Page } from "./style"
+import { Form, Page } from "../../../../styles/pages/cadastro/producao/style"
 
 export default function Producao() {
 	const router = useRouter()

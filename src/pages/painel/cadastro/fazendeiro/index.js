@@ -4,7 +4,7 @@ import PageContainer from "../../../../components/MuuCow/PageContainer"
 import FazendeiroForm from "../../../../components/Pages/Painel/_forms/FazendeiroForm"
 import PageContainerContext from "../../../../contexts/PageContainerContext"
 import ServiceBase from "../../../../services/ServiceBase"
-import { Form, Page } from "./style"
+import { Form, Page } from "../../../../styles/pages/cadastro/fazendeiro/style"
 
 export default function Fazendeiro() {
 	const router = useRouter()

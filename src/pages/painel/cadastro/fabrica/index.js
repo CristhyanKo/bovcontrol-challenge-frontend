@@ -5,7 +5,7 @@ import FabricaForm from "../../../../components/Pages/Painel/_forms/FabricaForm"
 import MapContext from "../../../../contexts/MapContext"
 import PageContainerContext from "../../../../contexts/PageContainerContext"
 import ServiceBase from "../../../../services/ServiceBase"
-import { Form, Page } from "./style"
+import { Form, Page } from "../../../../styles/pages/cadastro/fabrica/style"
 
 export default function Fabrica() {
 	const router = useRouter()
