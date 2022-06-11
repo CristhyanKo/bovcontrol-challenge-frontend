@@ -214,6 +214,7 @@ export const ProductionMetric = styled.div`
 export const ToolTipChart = styled.div`
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 	background: #3d31a2;
 	color: #fff;

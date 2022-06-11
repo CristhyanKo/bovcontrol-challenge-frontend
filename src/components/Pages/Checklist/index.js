@@ -29,11 +29,12 @@ import CowMusic from "../../MuuCow/Animations/CowMusic"
 import ProductionService from "../../../services/ProductionService"
 import Table from "../../MuuCow/Common/Table"
 
-function CustomTooltip({ active, payload }) {
+function CustomTooltip({ active, payload, label }) {
 	if (active && payload && payload.length) {
 		return (
 			<ToolTipChart className='custom-tooltip'>
-				<p className='label'>{`Total Produzido (L) : ${payload[0].value}`}</p>
+				<p className='label'>{`${label}`}</p>
+				<p className='label'>{`Total Produzido (L) ${label} : ${payload[0].value}`}</p>
 			</ToolTipChart>
 		)
 	}
