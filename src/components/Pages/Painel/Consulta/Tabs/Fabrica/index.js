@@ -20,45 +20,26 @@ export default function FabricaTab() {
 		setTotalPages(initialData.totalPages)
 	}
 
-	const cols = [{ id: "name", name: "Nome", center: false }]
+	const cols = [
+		{ id: "name", name: "Nome", center: false },
+		{ id: "location.city.name", name: "Cidade", center: true },
+		{ id: "location.state.name", name: "Estado", center: true },
+	]
 	const tableAction = (formData) => {
 		return (
-			<>
-				<Button
-					color='#00AB77'
-					onClick={() => {
-						setShowModal(true)
-						setModalData({
-							title: "Visualizar/Editar",
-							content: <ModalFabrica data={formData} modelName={modelName} />,
-						})
-					}}
-					mr='5px'
-				>
-					<FaRegEdit />
-				</Button>
-				{/* <Button
-					color='#00AB77'
-					onClick={() => {
-						setShowAlertModal(true)
-						setAlertModalData({
-							title: "Atenção",
-							content: "Deseja excluir o registro ?",
-							type: "alert",
-							onConfirm: async () => {
-								await service.delete({ [idName]: formData._id })
-								setReloadData(true)
-								setShowAlertModal(false)
-							},
-							onClose: () => {
-								setShowAlertModal(false)
-							},
-						})
-					}}
-				>
-					<FaRegTrashAlt />
-				</Button> */}
-			</>
+			<Button
+				color='#00AB77'
+				onClick={() => {
+					setShowModal(true)
+					setModalData({
+						title: "Visualizar/Editar",
+						content: <ModalFabrica data={formData} modelName={modelName} />,
+					})
+				}}
+				mr='5px'
+			>
+				<FaRegEdit />
+			</Button>
 		)
 	}
 

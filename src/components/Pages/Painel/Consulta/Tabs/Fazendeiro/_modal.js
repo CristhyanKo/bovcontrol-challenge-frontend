@@ -5,10 +5,10 @@ import TableContext from "../../../../../../contexts/TableContext"
 import ServiceBase from "../../../../../../services/ServiceBase"
 import FazendeiroForm from "../../../_forms/FazendeiroForm"
 
-export default function ModalFazendeiro({ data }) {
+export default function ModalFazendeiro({ data, modelName }) {
 	const { setReloadData } = useContext(TableContext)
 	const { setShowModal } = useContext(ModalContext)
-	const service = ServiceBase("farmer")
+	const service = ServiceBase(modelName)
 
 	const submit = async (values) => {
 		const updateDate = {

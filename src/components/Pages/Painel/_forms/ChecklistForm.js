@@ -1,48 +1,32 @@
-import { useContext } from "react"
 import * as Yup from "yup"
-import ServiceBase from "../../../../services/ServiceBase"
-import TableContext from "../../../../contexts/TableContext"
 import Form from "../../../MuuCow/Common/Form"
 import InputGroup from "../../../MuuCow/Common/InputGroup"
 
-export default function ChecklistForm({ data, submitRef, width }) {
-	const { setReloadData } = useContext(TableContext)
-	const service = ServiceBase("farmer")
+export default function ProducaoForm({ data, width, type, onCancel, onSubmit, backButton, cols, setFieldValue }) {
 	const schema = {
 		validation: Yup.object().shape({
-			nome: Yup.string().required("O nome é obrigatório"),
-			email: Yup.string().email("O email é inválido").required("O email é obrigatório"),
-			isSupervisor: Yup.boolean(),
+			farm: Yup.string().required("A fazenda é obrigatória"),
+			checklistType: Yup.string().required("O tipo de checklist é obrigatório"),
 		}),
 
 		initialValues: {
-			nome: data ? data.name : "",
-			email: data ? data.email : "",
-			phone: data ? data.phone : "",
-			isSupervisor: data ? data.isSupervisor : false,
+			farm: data ? data.farm._id : "",
+			checklistType: data ? data.checklistType._id : "",
 		},
 	}
 
-	const submit = async (values) => {
-		const updateDate = {
-			farmerId: data._id,
-			name: values.nome,
-			email: values.email,
-			phone: values.phone,
-			isSupervisor: values.isSupervisor,
-		}
-
-		await service.update(updateDate).then(() => {
-			setReloadData(true)
-		})
-	}
-
 	return (
-		<Form width={width} schema={schema} onSubmit={submit} cols={0} submitRef={submitRef}>
-			<InputGroup id='nome' name='nome' type='text' title='Nome' placeholder='Informe o nome do Fazendeiro' />
-			<InputGroup id='email' name='email' type='email' title='Email' placeholder='Informe o email do Fazendeiro' />
-			<InputGroup id='phone' name='phone' type='text' title='Telefone' placeholder='Informe o telefone do Fazendeiro' mask='(99) 9 9999-9999' />
-			<InputGroup id='isSupervisor' name='isSupervisor' title='É um supervisor ?' type='checkbox' placeholder='Sim' />
+		<Form
+			width={width}
+			schema={schema}
+			onSubmit={(vals) => onSubmit(vals, setFieldValue)}
+			cols={cols || 0}
+			type={type}
+			onCancel={onCancel}
+			backButton={backButton}
+		>
+			<InputGroup id='farm' name='farm' type='select' title='Fazenda' placeholder='Seleciona uma fazenda' />
+			<InputGroup id='checklistType' name='checklistType' type='select' title='Tipo de checklist' placeholder='Seleciona um tipo de checklist' />
 		</Form>
 	)
 }

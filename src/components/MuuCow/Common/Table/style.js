@@ -4,7 +4,7 @@ import pSBC from "shade-blend-color"
 export const TableComponent = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: ${(props) => props.width || "100%"};
 	height: ${(props) => props.height || "100%"};
 	border: 1px solid #dddddd;
 	border-radius: 8px;

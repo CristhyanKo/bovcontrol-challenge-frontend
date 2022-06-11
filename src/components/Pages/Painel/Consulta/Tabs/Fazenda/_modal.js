@@ -1,49 +1,56 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { useContext } from "react"
-import * as Yup from "yup"
+import { useContext, useEffect } from "react"
+import MapContext from "../../../../../../contexts/MapContext"
+import ModalContext from "../../../../../../contexts/ModalContext"
 import TableContext from "../../../../../../contexts/TableContext"
 import ServiceBase from "../../../../../../services/ServiceBase"
-import Form from "../../../../../MuuCow/Common/Form"
-import InputGroup from "../../../../../MuuCow/Common/InputGroup"
+import FazendaForm from "../../../_forms/FazendaForm"
 
-export default function ModalFazenda({ data, submitRef, modelName }) {
+export default function ModalFazenda({ data, modelName }) {
+	const { latitude, longitude, setLatitude, setLongitude } = useContext(MapContext)
 	const { setReloadData } = useContext(TableContext)
+	const { setShowModal } = useContext(ModalContext)
 	const service = ServiceBase(modelName)
-	const schema = {
-		validation: Yup.object().shape({
-			name: Yup.string().required("O nome é obrigatório"),
-			email: Yup.string().email("O email é inválido").required("O email é obrigatório"),
-			isSupervisor: Yup.boolean(),
-		}),
-
-		initialValues: {
-			name: data.name,
-			email: data.email,
-			phone: data.phone,
-			isSupervisor: data.isSupervisor,
-		},
-	}
 
 	const submit = async (values) => {
 		const updateDate = {
-			farmerId: data._id,
+			farmId: data._id,
 			name: values.name,
-			email: values.email,
-			phone: values.phone,
-			isSupervisor: values.isSupervisor,
+			location: {
+				city: values.city,
+				state: values.state,
+				coordinates: {
+					latitude,
+					longitude,
+				},
+			},
+			cowsHead: values.cowsHead,
+			farmers: values.farmers,
+			factories: values.factories,
+			supervisors: values.supervisors,
 		}
 
 		await service.update(updateDate).then(() => {
+			setShowModal(false)
 			setReloadData(true)
 		})
 	}
 
+	useEffect(() => {
+		setLatitude(data ? data.location?.coordinates?.latitude : 0)
+		setLongitude(data ? data.location?.coordinates?.longitude : 0)
+	}, [data])
+
 	return (
-		<Form schema={schema} onSubmit={submit} cols={0} submitRef={submitRef}>
-			<InputGroup id='nome' name='nome' type='text' title='Nome' placeholder='Informe o nome do Fazendeiro' />
-			<InputGroup id='email' name='email' type='email' title='Email' placeholder='Informe o email do Fazendeiro' />
-			<InputGroup id='phone' name='phone' type='text' title='Telefone' placeholder='Informe o telefone do Fazendeiro' mask='(99) 9 9999-9999' />
-			<InputGroup id='isSupervisor' name='isSupervisor' title='É um supervisor ?' type='checkbox' placeholder='Sim' />
-		</Form>
+		<div style={{ height: "650px" }}>
+			<FazendaForm
+				data={data}
+				type='update'
+				onSubmit={submit}
+				onCancel={() => {
+					setShowModal(false)
+				}}
+			/>
+		</div>
 	)
 }

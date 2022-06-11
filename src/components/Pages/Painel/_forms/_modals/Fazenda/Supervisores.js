@@ -2,7 +2,7 @@ import * as Yup from "yup"
 import Form from "../../../../../MuuCow/Common/Form"
 import InputGroup from "../../../../../MuuCow/Common/InputGroup"
 
-export default function Supervisores({ data, width, type, onCancel, onSubmit, backButton, cols }) {
+export default function Supervisores({ data, width, type, onCancel, onSubmit, backButton, cols, setFieldValue }) {
 	const schema = {
 		validation: Yup.object().shape({
 			farmer: Yup.object().required("Supervisor é obrigatório"),
@@ -19,8 +19,16 @@ export default function Supervisores({ data, width, type, onCancel, onSubmit, ba
 	}
 
 	return (
-		<Form width={width} schema={schema} onSubmit={onSubmit} cols={cols || 0} type={type} onCancel={onCancel} backButton={backButton}>
-			<InputGroup id='farmer' name='surpervisor' type='select' title='Supervisor' placeholder='Seleciona um supervisor' returnObjectFromSelect />
+		<Form
+			width={width}
+			schema={schema}
+			onSubmit={(vals) => onSubmit(vals, setFieldValue)}
+			cols={cols || 0}
+			type={type}
+			onCancel={onCancel}
+			backButton={backButton}
+		>
+			<InputGroup id='farmer' name='farmer' type='select' title='Supervisor' placeholder='Seleciona um supervisor' returnObjectFromSelect />
 			<InputGroup id='startDate' name='startDate' type='datepicker' title='Data Inicio' />
 			<InputGroup id='endDate' name='endDate' type='datepicker' title='Data Fim' />
 			<InputGroup id='current' name='current' title='Atual' type='checkbox' placeholder='Supervisor atual' />

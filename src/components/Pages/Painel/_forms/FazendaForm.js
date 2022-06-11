@@ -24,6 +24,9 @@ export default function FazendaForm({ data, width, type, onCancel, onSubmit, bac
 			state: data ? data.location.state._id : "",
 			city: data ? data.location.city._id : "",
 			cowsHead: data ? data.cowsHead : 0,
+			farmers: data ? data.farmers : [],
+			factories: data ? data.factories : [],
+			supervisors: data ? data.supervisors : [],
 		},
 	}
 
@@ -31,37 +34,56 @@ export default function FazendaForm({ data, width, type, onCancel, onSubmit, bac
 		setLatitude(data ? data.location?.coordinates?.latitude : 0)
 		setLongitude(data ? data.location?.coordinates?.longitude : 0)
 
+		if (data?.farmers) setFarmersData(data.farmers)
+		if (data?.factories) setFactoriesData(data.factories)
+		if (data?.supervisors) setSupervisorData(data.supervisors)
+
 		return () => {
 			setLatitude(0)
 			setLongitude(0)
 		}
 	}, [data])
 
-	const submitFarmer = (values) => {
+	const submitFarmer = (values, setFieldValue) => {
 		setFarmersData([...farmersData, values])
+		setFieldValue("farmers", [...farmersData, values])
 		setShowModal(false)
 	}
 
-	const removeFarmer = (values) => {
+	const removeFarmer = (values, setFieldValue) => {
 		setFarmersData(farmersData.filter((farmer) => farmer.tableId !== values.tableId))
+		setFieldValue(
+			"farmers",
+			farmersData.filter((farmer) => farmer.tableId !== values.tableId)
+		)
 	}
 
-	const submitSupervisors = (values) => {
+	const submitSupervisors = (values, setFieldValue) => {
 		setSupervisorData([...supervisorsData, values])
+		setFieldValue("supervisors", [...supervisorsData, values])
 		setShowModal(false)
 	}
 
-	const removeSupervisors = (values) => {
-		setSupervisorData(supervisorsData.filter((farmer) => farmer.tableId !== values.tableId))
+	const removeSupervisors = (values, setFieldValue) => {
+		setSupervisorData(supervisorsData.filter((supervisor) => supervisor.tableId !== values.tableId))
+		setFieldValue(
+			"supervisors",
+			supervisorsData.filter((supervisor) => supervisor.tableId !== values.tableId)
+		)
 	}
 
-	const submitFactories = (values) => {
+	const submitFactories = (values, setFieldValue) => {
 		setFactoriesData([...factoriesData, values])
+		setFieldValue("factories", [...factoriesData, values])
 		setShowModal(false)
 	}
 
-	const removeFactories = (values) => {
-		setFactoriesData(factoriesData.filter((farmer) => farmer.tableId !== values.tableId))
+	const removeFactories = (values, setFieldValue) => {
+		setFactoriesData(factoriesData.filter((factory) => factory.tableId !== values.tableId))
+		setFieldValue(
+			"factories",
+			factoriesData.filter((factory) => factory.tableId !== values.tableId)
+		)
 	}
 
 	return (
@@ -90,7 +112,7 @@ export default function FazendaForm({ data, width, type, onCancel, onSubmit, bac
 			<InputGroup
 				data={supervisorsData}
 				id='supervisors'
-				name='farmerSupervisor'
+				name='supervisors'
 				type='array'
 				title='Supervisores'
 				height='200px'
@@ -107,14 +129,14 @@ export default function FazendaForm({ data, width, type, onCancel, onSubmit, bac
 			<InputGroup
 				data={factoriesData}
 				id='factories'
-				name='farmerSupervisor'
+				name='factories'
 				type='array'
 				title='Fábricas'
 				height='200px'
 				onRemove={removeFactories}
 				cols={[
 					{ id: "factory.name", name: "Nome", center: false },
-					{ id: "factoryDistance", name: "Distancia", type: "date", center: true },
+					{ id: "factoryDistance", name: "Distancia (KM)", center: true },
 				]}
 				modal={<Fabricas onSubmit={submitFactories} />}
 			/>

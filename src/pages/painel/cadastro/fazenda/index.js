@@ -25,10 +25,11 @@ export default function Fazenda() {
 				},
 			},
 			cowsHead: values.cowsHead,
-			farmers: [],
-			factories: [],
-			supervisors: [],
+			farmers: values.farmers,
+			factories: values.factories,
+			supervisors: values.supervisors,
 		}
+
 		await service.store(data).then(() => {
 			renderPopAlert("Fazenda cadastrada com sucesso!", "success", 2000)
 			router.push("/painel/consulta")

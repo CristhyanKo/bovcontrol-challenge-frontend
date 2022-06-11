@@ -30,7 +30,7 @@ export default function Cadastro() {
 				</span>
 				Fazenda
 			</Action>
-			<Action onClick={() => route.push("/painel/cadastro")} color={activePage.color}>
+			<Action onClick={() => route.push("/painel/cadastro/producao")} color={activePage.color}>
 				<span>
 					<TbMilk />
 				</span>
@@ -42,7 +42,7 @@ export default function Cadastro() {
 				</span>
 				Checklist
 			</Action>
-			<Action onClick={() => route.push("/painel/cadastro")} color={activePage.color}>
+			<Action onClick={() => route.push("/painel/cadastro/parametrizacao")} color={activePage.color}>
 				<span>
 					<HiCog />
 				</span>

@@ -22,57 +22,32 @@ export default function ProducaoTab() {
 
 	const cols = [
 		{ id: "farm.name", name: "Fazenda", center: false },
-		{ id: "date", name: "Data", center: true },
+		{ id: "date", name: "Data", center: true, type: "date" },
 		{ id: "milkProduced", name: "Total de Leite Produzido (L)", center: true },
 	]
 	const tableAction = (formData) => {
 		return (
-			<>
-				{/* <Button
-					color='#00AB77'
-					onClick={() => {
-						setShowModal(true)
-						setModalData({
-							title: "Visualizar/Editar",
-							content: <ModalProducao submitRef={submitRef} data={formData} />,
-							confirmText: "Salvar",
-							onConfirm: async () => {
-								if (submitRef.current) {
-									submitRef.current.handleSubmit()
-									setShowModal(false)
-								}
-							},
-							onClose: () => {
-								setShowModal(false)
-							},
-						})
-					}}
-					mr='5px'
-				>
-					<FaRegEdit />
-				</Button> */}
-				<Button
-					color='#00AB77'
-					onClick={() => {
-						setShowAlertModal(true)
-						setAlertModalData({
-							title: "Atenção",
-							content: "Deseja excluir o registro ?",
-							type: "alert",
-							onConfirm: async () => {
-								await service.delete({ [idName]: formData._id })
-								setReloadData(true)
-								setShowAlertModal(false)
-							},
-							onClose: () => {
-								setShowAlertModal(false)
-							},
-						})
-					}}
-				>
-					<FaRegTrashAlt />
-				</Button>
-			</>
+			<Button
+				color='#00AB77'
+				onClick={() => {
+					setShowAlertModal(true)
+					setAlertModalData({
+						title: "Atenção",
+						content: "Deseja excluir o registro ?",
+						type: "alert",
+						onConfirm: async () => {
+							await service.delete({ [idName]: formData._id })
+							setReloadData(true)
+							setShowAlertModal(false)
+						},
+						onClose: () => {
+							setShowAlertModal(false)
+						},
+					})
+				}}
+			>
+				<FaRegTrashAlt />
+			</Button>
 		)
 	}
 

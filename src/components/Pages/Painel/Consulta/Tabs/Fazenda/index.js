@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FaRegEdit } from "react-icons/fa"
 import Table from "../../../../../MuuCow/Common/Table"
 import ServiceBase from "../../../../../../services/ServiceBase"
@@ -13,8 +13,6 @@ export default function FazendaTab() {
 	const { setShowModal, setModalData } = useContext(ModalContext)
 	const modelName = "farm"
 	const service = ServiceBase(modelName)
-	// const idName = `${modelName}Id`
-	const submitRef = useRef(null)
 
 	const getInitialData = async () => {
 		const initialData = await service.getAll(page, 10)
@@ -31,7 +29,10 @@ export default function FazendaTab() {
 			id: "farmers",
 			name: "Fazendeiros",
 			center: true,
-			cols: [{ id: "farmer.name", name: "Nome", center: false }],
+			cols: [
+				{ id: "farmer.name", name: "Nome", center: false },
+				{ id: "current", name: "Atual", center: true },
+			],
 		},
 		{
 			id: "factories",
@@ -39,60 +40,36 @@ export default function FazendaTab() {
 			center: true,
 			cols: [
 				{ id: "factory.name", name: "Nome", center: false },
-				// { id: "factory.location.city.name", name: "Cidade", center: false },
-				// { id: "factory.location.state.name", name: "Estado", center: false },
+				{ id: "factoryDistance", name: "Distancia (KM)", center: true },
+				{ id: "factory.location.city.name", name: "Cidade", center: true },
+				{ id: "factory.location.state.name", name: "Estado", center: true },
 			],
 		},
-		{ id: "supervisors", name: "Supervisores", center: true, cols: [{ id: "farmerSupervisor.name", name: "Nome", center: false }] },
+		{
+			id: "supervisors",
+			name: "Supervisores",
+			center: true,
+			cols: [
+				{ id: "farmer.name", name: "Nome", center: false },
+				{ id: "current", name: "Atual", center: true },
+			],
+		},
 	]
 	const tableAction = (formData) => {
 		return (
-			<>
-				<Button
-					color='#00AB77'
-					onClick={() => {
-						setShowModal(true)
-						setModalData({
-							title: "Visualizar/Editar",
-							content: <ModalFazenda submitRef={submitRef} data={formData} modelName={modelName} />,
-							confirmText: "Salvar",
-							onConfirm: async () => {
-								if (submitRef.current) {
-									submitRef.current.handleSubmit()
-									setShowModal(false)
-								}
-							},
-							onClose: () => {
-								setShowModal(false)
-							},
-						})
-					}}
-					mr='5px'
-				>
-					<FaRegEdit />
-				</Button>
-				{/* <Button
-					color='#00AB77'
-					onClick={() => {
-						setShowAlertModal(true)
-						setAlertModalData({
-							title: "Atenção",
-							content: "Deseja excluir o registro ?",
-							type: "alert",
-							onConfirm: async () => {
-								await service.delete({ [idName]: formData._id })
-								setReloadData(true)
-								setShowAlertModal(false)
-							},
-							onClose: () => {
-								setShowAlertModal(false)
-							},
-						})
-					}}
-				>
-					<FaRegTrashAlt />
-				</Button> */}
-			</>
+			<Button
+				color='#00AB77'
+				onClick={() => {
+					setShowModal(true)
+					setModalData({
+						title: "Visualizar/Editar",
+						content: <ModalFazenda data={formData} modelName={modelName} />,
+					})
+				}}
+				mr='5px'
+			>
+				<FaRegEdit />
+			</Button>
 		)
 	}
 

@@ -1,7 +1,7 @@
 import { Field } from "formik"
 import dynamic from "next/dynamic"
 import InputMask from "react-input-mask"
-import { useEffect, useContext, useState } from "react"
+import React, { useEffect, useContext, useState } from "react"
 import { FaRegTrashAlt } from "react-icons/fa"
 import { BsPlusLg } from "react-icons/bs"
 import DatePicker from "react-datepicker"
@@ -33,6 +33,7 @@ export default function InputGroup({
 	modal,
 	returnObjectFromSelect,
 	onRemove,
+
 	...props
 }) {
 	const { latitude, longitude } = useContext(MapContext)
@@ -66,17 +67,7 @@ export default function InputGroup({
 				getOptions()
 			}
 		}
-	}, [id])
-
-	useEffect(() => {
-		if (type === "select") {
-			if (data) {
-				setOptions(data)
-			} else {
-				getOptions()
-			}
-		}
-	}, [data])
+	}, [data, id])
 
 	if (type === "map") {
 		return (
@@ -155,8 +146,9 @@ export default function InputGroup({
 				<Button
 					color='#00AB77'
 					onClick={() => {
-						onRemove(rowValue)
+						onRemove(rowValue, setFieldValue)
 					}}
+					type='button'
 				>
 					<FaRegTrashAlt />
 				</Button>
@@ -173,17 +165,17 @@ export default function InputGroup({
 								setShowModal(true)
 								setModalData({
 									title: formType === "create" ? `Cadastro ${title}` : `Editar ${title}`,
-									content: modal,
-									setFieldValue,
+									content: React.cloneElement(modal, { setFieldValue }),
 								})
 							}}
+							type='button'
 							color='#00AB77'
 						>
 							<BsPlusLg />
 						</Button>
 					)}
 				</ArrayTableHeader>
-				<Table height={height} data={data} cols={cols} actions={tableAction} noPagination />
+				<Table height={height} data={data} cols={cols} actions={tableAction} noPagination width='auto' />
 			</AarrayTable>
 		)
 	}

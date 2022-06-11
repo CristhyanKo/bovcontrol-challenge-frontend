@@ -8,7 +8,7 @@ import Button from "../Button"
 import ModalContext from "../../../../contexts/ModalContext"
 import CowAbduction from "../../Animations/cowAbduction"
 
-export default function Table({ data, cols, actions, height, noPagination }) {
+export default function Table({ data, cols, actions, height, noPagination, width }) {
 	const [columns, setColumns] = useState([])
 	const [rows, setRows] = useState([])
 	const { setPage, setLimit, page, totalPages } = useContext(TableContext)
@@ -33,7 +33,7 @@ export default function Table({ data, cols, actions, height, noPagination }) {
 		setShowModal(true)
 		setModalData({
 			title,
-			content: <Table data={dataDetails} cols={detailCols} />,
+			content: <Table data={dataDetails} cols={detailCols} noPagination width='auto' />,
 			confirmText: "Fechar",
 			onConfirm: async () => {
 				setShowModal(false)
@@ -58,7 +58,7 @@ export default function Table({ data, cols, actions, height, noPagination }) {
 	}
 
 	return (
-		<TableComponent height={height}>
+		<TableComponent height={height} width={width}>
 			<TableHeader>
 				{columns.map((col) => (
 					<TableColumn center={col.center} key={col.id}>

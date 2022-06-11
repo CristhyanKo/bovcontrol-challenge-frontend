@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
 		}
 
 		*::-webkit-scrollbar-track {
-			background: #ffffff;
+			background: transparent;
 		}
 
 		*::-webkit-scrollbar-thumb {
