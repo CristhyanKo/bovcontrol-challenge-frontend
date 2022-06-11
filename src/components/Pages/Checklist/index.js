@@ -34,7 +34,7 @@ function CustomTooltip({ active, payload, label }) {
 		return (
 			<ToolTipChart className='custom-tooltip'>
 				<p className='label'>{`${label}`}</p>
-				<p className='label'>{`Total Produzido (L) ${label} : ${payload[0].value}`}</p>
+				<p className='label'>{`Total Produzido (L) : ${payload[0].value}`}</p>
 			</ToolTipChart>
 		)
 	}
